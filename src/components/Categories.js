@@ -42,6 +42,21 @@ const CategoriesBlock = styled.div`
         overflow-x: auto; //내용이 넘어갈 경우
     }
     `;
+const Category = styled.div`
+    font-size: 1.125rem;
+    cursor: pointer;
+    white-space: pre; //?
+    text-decoration: none;
+    color: inherit;
+    padding-bottom: 0.25rem;
+
+    &:hover {
+        color: #495057;
+    }
+    & + & {
+        margin-left: 1rem;
+    }
+`;
 const Categories = () => {
     return (
         <CategoriesBlock>
