@@ -20,18 +20,24 @@ const TodosContainer = ({
         onRemove={remove} />);
 };
 
-const mapStateToProps = state => ({
-    input: state.todos.input,
+const mapStateToProps = state => ({ //어떤 것을 props로 넣어줄지 결정
+    input: state.todos.text,
     todos: state.todos.todos
 });
+const mapDispatchToProps = dispatch => ({
+    changeInput: () => {
+        dispatch(changeInput());
+    },
+    insert: () => {
+        dispatch(insert());
+    },
+    toggle: () => {
+        dispatch(toggle());
+    },
+    remove: () => {
+        dispatch(remove());
+    }
+});
 export default connect(
-    ({ todos }) => ({
-        input: todos.input,
-        todos: todos.todos
-    }),
-    {
-        changeInput,
-        insert,
-        toggle,
-        remove
-    })(TodosContainer);
+    mapStateToProps,
+    mapDispatchToProps)(TodosContainer);
