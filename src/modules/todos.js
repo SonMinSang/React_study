@@ -1,4 +1,5 @@
-import { createAction, handleActions } from "redux-actions";
+import { createAction, handleActions } from 'redux-actions';
+import produce from 'immer';
 
 const CHANGE_INPUT = 'todos/CHANGE_INPUT';
 const INSERT = 'todos/INSERT';
@@ -17,7 +18,7 @@ export const insert = createAction(INSERT, text => ({
 
 export const toggle = createAction(TOGGLE, id => id);
 
-export const remove = createAction(TOGGLE, id => id);
+export const remove = createAction(REMOVE, id => id);
 const initialState = {
     input: '',
     todos: [
@@ -35,15 +36,19 @@ const initialState = {
 };
 
 const todos = handleActions({
-    [CHANGE_INPUT]: (state, action) => ({ ...state, input: action.payload }),
-    [INSERT]: (state, action) => ({ ...state, todos: state.todos.concat(action.payload) }),
-    [TOGGLE]: (state, action) => ({
-        ...state, todos: state.todos.map(todo =>
-            todo.id === action.payload ? { ...todo, done: !todo.done } : todo)
+    [CHANGE_INPUT]: (state, { payload: input }) => produce(state, draft => {
+        draft.input = input;
     }),
-    [REMOVE]: (state, action) => ({
-        ...state,
-        todos: state.todos.filter(todo => todo.id !== action.payload)
+    [INSERT]: (state, { payload: todo }) => produce(state, draft => {
+        draft.todos.push(todo) // concat => push 
+    }),
+    [TOGGLE]: (state, { payload: id }) => produce(state, draft => { //map => find
+        const todo = draft.todos.find(todo => todo.id === id);
+        todo.done = !todo.done;
+    }),
+    [REMOVE]: (state, { payload: id }) => produce(state, draft => {
+        const index = draft.todos.findIndex(todo => todo.id === id);
+        draft.todos.splice(index, 1);
     }),
 },
     initialState
