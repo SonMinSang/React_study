@@ -12,6 +12,11 @@ const GET_USERS_FAILURE = 'sample/GET_USERS_FAILURE';
 
 export const getPost = createRequestThunk(GET_POST, api.getPost);
 export const getUsers = createRequestThunk(GET_USERS, api.getUsers);
+
+const initialState = {
+    post: null,
+    users: null
+};
 /*
 export const getPost = id => async dispatch => {
     dispatch({ type: GET_POST });
@@ -48,7 +53,6 @@ export const getUsers = () => async dispatch => {
         throw (e);
     }
 };
-*/
 
 const initialState = {
     loading: {
@@ -58,6 +62,22 @@ const initialState = {
     post: null,
     users: null,
 };
+*/
+
+const sample = handleActions({
+    [GET_POST_SUCCESS]: (state, action) => ({
+        ...state,
+        post: action.payload
+    }),
+    [GET_USERS_SUCCESS]: (state, action) => ({
+        ...state,
+        users: action.payload
+    }),
+},
+    initialState
+);
+
+/*
 const sample = handleActions({
     [GET_POST]: state => ({
         ...state,
@@ -106,6 +126,7 @@ const sample = handleActions({
 },
     initialState
 );
+*/
 export default sample;
 /*
 const sample = (state = initialState, action) => {

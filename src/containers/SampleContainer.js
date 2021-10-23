@@ -14,8 +14,15 @@ const SampleContainer = ({
 }) => {
     // 클래스 형태 컴포넌트였다면 componentDidMount
     useEffect(() => {
-        getPost(1);
-        getUsers(1);
+        const fn = async () => {
+            try {
+                await getPost(1);
+                await getUsers(1);
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        fn();
     }, [getPost, getUsers]);
     return (
         <Sample
@@ -28,11 +35,11 @@ const SampleContainer = ({
 };
 
 export default connect(
-    ({ sample }) => ({
+    ({ sample, loading }) => ({
         post: sample.post,
         users: sample.users,
-        loadingPost: sample.loading.GET_POST, //module -> index 합쳐져서 state (handleActions 결과물)
-        loadingUsers: sample.loading.GET_USERS
+        loadingPost: loading['sample/GET_POST'], //module -> index 합쳐져서 state (handleActions 결과물)
+        loadingUsers: loading['sample/GET_USERS']//sample.loading.GET_USERS
     }),
     {
         getPost,
