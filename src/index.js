@@ -12,7 +12,7 @@ import createSagaMiddleware from 'redux-saga';
 
 const logger = createLogger();
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(rootReducer, applyMiddleware(logger, ReduxThunk, sagaMiddleware));
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(logger, ReduxThunk, sagaMiddleware)));
 sagaMiddleware.run(rootSaga);
 ReactDOM.render(
   <Provider store={store}>
