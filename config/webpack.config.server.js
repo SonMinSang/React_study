@@ -46,7 +46,7 @@ module.exports = {
                                 [
                                     require.resolve('babel-plugin-named-asset-import'),
                                     {
-                                        loadermap: {
+                                        loaderMap: {
                                             svg: {
                                                 ReactComponent:
                                                     '@svgr/webpack?-svgo,+titleProp,+ref![path]',
