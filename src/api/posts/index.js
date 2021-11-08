@@ -3,11 +3,11 @@ const postsCtrl = require('./posts.ctrl');
 
 const posts = new Router();
 
-posts.get('/', postsCtrl);
-posts.post('/', postsCtrl);
-posts.get('/:id', postsCtrl);
-posts.delete('/:id', postsCtrl);
-posts.put('/:id', postsCtrl);
-posts.patch('/:id', postsCtrl);
+posts.get('/', postsCtrl.list);
+posts.post('/', postsCtrl.list);
+posts.get('/:id', postsCtrl.list);
+posts.delete('/:id', postsCtrl.list);
+posts.put('/:id', postsCtrl.list);
+posts.patch('/:id', postsCtrl.list);
 
 module.exports = posts;
